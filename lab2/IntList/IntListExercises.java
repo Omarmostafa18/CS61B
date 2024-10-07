@@ -26,12 +26,15 @@ public class IntListExercises {
     public static void setToZeroIfMaxFEL(IntList L) {
         IntList p = L;
         while (p != null) {
-            if (firstDigitEqualsLastDigit(max(p))) {
+            int currentMax = max(p);  // Store the result of max(p) in a variable
+            boolean firstEqualsLast = firstDigitEqualsLastDigit(currentMax);  // Store the result of firstDigitEqualsLastDigit() in a variable
+            if (firstEqualsLast) {  // Now it's easier to debug and inspect variables
                 p.first = 0;
             }
             p = p.rest;
         }
     }
+
 
     /** Returns the max value in the IntList starting at L. */
     public static int max(IntList L) {
@@ -51,10 +54,10 @@ public class IntListExercises {
      */
     public static boolean firstDigitEqualsLastDigit(int x) {
         int lastDigit = x % 10;
-        while (x > 10) {
+        while (x >= 10) {
             x = x / 10;
         }
-        int firstDigit = x % 10;
+        int  firstDigit = x % 10;
         return firstDigit == lastDigit;
     }
 
