@@ -30,7 +30,6 @@ public class TimeAList {
         // TODO: YOUR CODE HERE
 
         for(int i = 1000; i <= 128000; i = i * 2){
-            //AList<Integer> list = new AList<>();
             Stopwatch sw = new Stopwatch();
             AList<Integer> list = new AList<>();
             for(int j = 0; j < i; j++){
