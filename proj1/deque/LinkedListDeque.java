@@ -79,9 +79,9 @@ public class LinkedListDeque<T> implements  Iterable<T> {
 
     public void printDeque() {
         // Create the iterator once
-        if (sentinel.next == null) {System.out.println("null");}
-
-        else{
+        if (sentinel.next == null) {
+            System.out.println("null");
+        } else {
             for (T item : this) {
                 System.out.print(item + " ");
 
@@ -113,7 +113,7 @@ public class LinkedListDeque<T> implements  Iterable<T> {
         if (isEmpty()) {
             return null;
         }
-        T returnItem=sentinel.prev.item ;
+        T returnItem = sentinel.prev.item;
         if (size == 1) {
             sentinel.next = sentinel;
             sentinel.prev = sentinel;
@@ -152,6 +152,7 @@ public class LinkedListDeque<T> implements  Iterable<T> {
 
     private class CustomIterator implements Iterator<T> {
         private int itemPosition;
+
         public CustomIterator() {
             itemPosition = 0;
 
@@ -202,40 +203,4 @@ public class LinkedListDeque<T> implements  Iterable<T> {
 
         return true;
     }
-
-
-    public static void main(String[] args) {
-        LinkedListDeque<Integer> deque = new LinkedListDeque<>();
-        LinkedListDeque<Integer> deque1 = new LinkedListDeque<>();
-
-
-        // Test addFirst and addLast
-
-        System.out.println(deque.removeLast());
-        System.out.println(deque.isEmpty());
-        System.out.println(deque.removeFirst());
-
-
-
-
-
-
-        System.out.println("Size: " + deque.size()); // Expected: 3
-
-        deque.printDeque();
-        deque1.printDeque();
-
-        if (deque1.equals(deque)){
-            System.out.println("oh yea");
-        }
-        else{
-            System.out.println("ohh no");
-        }
-
-    }
-
-
 }
-
-
-    //test
