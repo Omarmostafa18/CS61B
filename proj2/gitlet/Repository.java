@@ -2,6 +2,8 @@ package gitlet;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.*;
 
 import static gitlet.Utils.*;
 
@@ -41,9 +43,6 @@ public class Repository {
         Utils.writeObject(initCommitFile, initCommit);
 
 
-        if(GITLET_DIR.exists()){
-            System.out.println("A Gitlet version-control system already exists in the current directory.");
-        }
     }
 
 
@@ -60,10 +59,28 @@ public class Repository {
      * @param fileName
      */
     public static void add(String fileName) {
-        File indexFile = Utils.join(GITLET_DIR, "index");// .git/index
         File addFile = new File(fileName);
-        String sha = Utils.sha1(Utils.readContentsAsString(addFile));
-        String path = addFile.getPath();
-        Utils.writeContents(indexFile, sha, path);
+        if (!addFile.exists()) {
+            throw new IllegalArgumentException("File does not exist.");
+        }
+
+        // hash the contents
+        String contents = Utils.readContentsAsString(addFile);
+        String sha = Utils.sha1(contents);
+
+        // point to the index file
+        File indexFile = Utils.join(GITLET_DIR, "index");
+
+        // record mapping (filename → sha)
+        // You can decide if index stores JSON, key/value lines, or even a serialized HashMap
+        HashMap<String, String> staging = new HashMap<>();
+
+        if (indexFile.exists()) {
+            staging = Utils.readObject(indexFile, HashMap.class);
+        }
+
+        staging.put(fileName, sha);
+        Utils.writeObject(indexFile, staging);
     }
+
 }
